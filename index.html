@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PSYCHIC GAME</title>
+</head>
+<body>
+    <div>
+        <h1>ROCK PAPER SCISSORS!</h1>
+        <h2>Chose r, p, or s to begin...</h2>
+        <p>Player Move: <span id="playerMoveText"></span> </p>
+        <p>Computer Move: <span id="computerMoveText"></span></p>
+        <p>Player Wins: <span id="winsText"></span></p>
+        <p>Player Loses: <span id="lossesText"></span></p>
+        <p>Ties: <span id="tiesText"></span></p>
+    </div>
+     
+    <script>
+        //delcare variables
+        var computerChoices = ["r", "p", "s"];
+        var playerMove;
+        var computerMove;
+        var playerMoveText;
+        var computerMoveText;
+        var winsText;
+        var lossesText;
+        var tiesText;
+        var wins = 0;
+        var losses = 0;
+        var ties = 0;
+
+        //assign variables to html
+        playerMoveText = document.getElementById("playerMoveText");
+        computerMoveText = document.getElementById("computerMoveText");
+        winsText = document.getElementById("winsText");
+        lossesText = document.getElementById("lossesText");
+        tiesText = document.getElementById("tiesText");
+        
+
+        //get player move and computer move
+        document.onkeyup = function(event) {
+            playerMove = event.key;
+            computerMove = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+            //conditional statements to determine winner
+            if ((playerMove === "r") || (playerMove === "p") || (playerMove === "s")) {
+
+                if ((playerMove === "r" && computerMove === "s") || 
+                (playerMove === "s" && computerMove === "p") ||
+                (playerMove === "p" && computerMove === "r")) {
+                    wins++;
+                }
+                else if (playerMove === computerMove) {
+                ties++;
+                console.log(ties);
+                }
+                else {
+                losses++;
+                console.log(losses);
+                }
+
+                playerMoveText.innerHTML = playerMove;
+                computerMoveText.innerHTML = computerMove;
+                winsText.innerHTML = wins;
+                lossesText.innerHTML = losses;
+                tiesText.innerHTML = ties;
+                
+            }
+        };
+    </script>
+</body>
+</html>
