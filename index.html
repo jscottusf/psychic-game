@@ -61,17 +61,20 @@
                 console.log(computerMove);
                 guesses = [];
                 }
-                else if (guessesLeft > 1) {
-                    guessesLeft--;
-                    showGuesses();
-                    }
-                else {
-                    losses++;
-                    guessesLeft = 9;
-                    setComputerMove();
-                    console.log(computerMove);
-                    guesses = [];
-                    }  
+            else if (guesses.indexOf(playerMove) != -1) {
+                alert("You have already chosen this letter")
+            }
+            else if (guessesLeft > 1) {
+                guessesLeft--;
+                showGuesses();
+                }
+            else {
+                losses++;
+                guessesLeft = 9;
+                setComputerMove();
+                console.log(computerMove);
+                guesses = [];
+                }  
             }
             
 
@@ -89,7 +92,7 @@
             winsText.innerHTML = wins;
             lossesText.innerHTML = losses;
             guessesLeftText.innerHTML = guessesLeft;
-            guessesText.innerHTML = "  " + guesses;
+            guessesText.innerHTML = guesses;
         }
 
         function showGuesses() {
