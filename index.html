@@ -14,6 +14,7 @@
         <p>Losses: <span id="lossesText"></span></p>
         <p>Guesses Left: <span id="guessesLeftText"></span></p>
         <p>Your guesses so far: <span id="guessesText"></span></p>
+        <h1 id="winner"></h1>
     </div>
      
     <script>
@@ -30,6 +31,7 @@
         var lossesText;
         var wins = 0;
         var losses = 0;
+        var winner;
         
 
         //assign variables to html
@@ -37,6 +39,7 @@
         lossesText = document.getElementById("lossesText");
         guessesLeftText = document.getElementById("guessesLeftText");
         guessesText = document.getElementById("guessesText");
+        winner = document.getElementById("winner");
         setComputerMove();
         setScore();
         console.log(computerMove);
@@ -48,6 +51,7 @@
         document.onkeyup = function(event) {
             playerMove = event.key;
             console.log(playerMove);
+            winner.innerHTML = " ";
 
             //check that key is a lower case letter
             if (computerChoices.indexOf(playerMove) === -1) {
@@ -60,6 +64,8 @@
                 setComputerMove();
                 console.log(computerMove);
                 guesses = [];
+                winner.innerHTML = "WINNER WINNER CHICKEN DINNER!";
+                alert("Wooooweeee, I was thinking of the letter " + playerMove + ".");
                 }
             else if (guesses.indexOf(playerMove) != -1) {
                 alert("You have already chosen this letter")
@@ -74,6 +80,7 @@
                 setComputerMove();
                 console.log(computerMove);
                 guesses = [];
+                alert("Better luck next time, Bro!")
                 }  
             }
             
