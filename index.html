@@ -8,67 +8,97 @@
 </head>
 <body>
     <div>
-        <h1>ROCK PAPER SCISSORS!</h1>
-        <h2>Chose r, p, or s to begin...</h2>
-        <p>Player Move: <span id="playerMoveText"></span> </p>
-        <p>Computer Move: <span id="computerMoveText"></span></p>
-        <p>Player Wins: <span id="winsText"></span></p>
-        <p>Player Loses: <span id="lossesText"></span></p>
-        <p>Ties: <span id="tiesText"></span></p>
+        <h1>PSYCHIC GAME!</h1>
+        <h2>Guess what letter I'm thinking of...</h2>
+        <p>Wins: <span id="winsText"></span></p>
+        <p>Losses: <span id="lossesText"></span></p>
+        <p>Guesses Left: <span id="guessesLeftText"></span></p>
+        <p>Your guesses so far: <span id="guessesText"></span></p>
     </div>
      
     <script>
         //delcare variables
-        var computerChoices = ["r", "p", "s"];
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
         var playerMove;
         var computerMove;
-        var playerMoveText;
-        var computerMoveText;
+        var guessesLeft;
+        var guesses = [];
+        var guessesLeft = 9;
+        var guessesLeftText;
+        var guessesText;
         var winsText;
         var lossesText;
-        var tiesText;
         var wins = 0;
         var losses = 0;
-        var ties = 0;
-
-        //assign variables to html
-        playerMoveText = document.getElementById("playerMoveText");
-        computerMoveText = document.getElementById("computerMoveText");
-        winsText = document.getElementById("winsText");
-        lossesText = document.getElementById("lossesText");
-        tiesText = document.getElementById("tiesText");
         
 
-        //get player move and computer move
+        //assign variables to html
+        winsText = document.getElementById("winsText");
+        lossesText = document.getElementById("lossesText");
+        guessesLeftText = document.getElementById("guessesLeftText");
+        guessesText = document.getElementById("guessesText");
+        setComputerMove();
+        setScore();
+        console.log(computerMove);
+
+        
+        
+
+        //main game loop
         document.onkeyup = function(event) {
             playerMove = event.key;
-            computerMove = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            console.log(playerMove);
 
-            //conditional statements to determine winner
-            if ((playerMove === "r") || (playerMove === "p") || (playerMove === "s")) {
-
-                if ((playerMove === "r" && computerMove === "s") || 
-                (playerMove === "s" && computerMove === "p") ||
-                (playerMove === "p" && computerMove === "r")) {
-                    wins++;
-                }
-                else if (playerMove === computerMove) {
-                ties++;
-                console.log(ties);
-                }
-                else {
-                losses++;
-                console.log(losses);
-                }
-
-                playerMoveText.innerHTML = playerMove;
-                computerMoveText.innerHTML = computerMove;
-                winsText.innerHTML = wins;
-                lossesText.innerHTML = losses;
-                tiesText.innerHTML = ties;
-                
+            //check that key is a lower case letter
+            if (computerChoices.indexOf(playerMove) === -1) {
+                alert("Please choose a lower case letter from a - z");
             }
+            else {
+              if (playerMove === computerMove) {
+                wins++;
+                guessesLeft = 9;
+                setComputerMove();
+                console.log(computerMove);
+                guesses = [];
+                }
+                else if (guessesLeft > 1) {
+                    guessesLeft--;
+                    showGuesses();
+                    }
+                else {
+                    losses++;
+                    guessesLeft = 9;
+                    setComputerMove();
+                    console.log(computerMove);
+                    guesses = [];
+                    }  
+            }
+            
+
+            setScore();
+            
+                
+            
         };
+
+        function setComputerMove() {
+            computerMove = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        }
+
+        function setScore() {
+            winsText.innerHTML = wins;
+            lossesText.innerHTML = losses;
+            guessesLeftText.innerHTML = guessesLeft;
+            guessesText.innerHTML = "  " + guesses;
+        }
+
+        function showGuesses() {
+            guesses.push(playerMove);
+        }
+
+
+
+
     </script>
 </body>
 </html>
